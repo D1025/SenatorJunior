@@ -18,13 +18,16 @@ async def on_started(event):
 @lightbulb.implements(lightbulb.SlashCommand)
 async def ping(ctx):
   character = dnd.Rub_Postac(ctx.author.id)
+  print('Character made by '+ str(ctx.author))
   await ctx.respond(character)
-  print('Done')
+  
 
 
 time.sleep(3)
 
-
-bot.run(status=hikari.Status.ONLINE,activity=hikari.Activity(name="Make a dnd Character!",type=hikari.ActivityType.WATCHING,),)
+try:
+  bot.run(status=hikari.Status.ONLINE,activity=hikari.Activity(name="Make a dnd Character!",type=hikari.ActivityType.WATCHING,),)
+except:
+  os.system("kill 1")
 
 # DO_NOT_DISTURB IDLE ONLINE

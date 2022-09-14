@@ -32,7 +32,7 @@ def Stats():
   
   
 
-def Losuj_Rasa(author):
+def Losuj_Rasa():
   global Statystyki, atrybuty
   rr = open("json/newrases.json")
   race_result = json.load(rr)
@@ -43,10 +43,7 @@ def Losuj_Rasa(author):
 
   #race_list.append(new_races) #Dla nowych ras, ale raczej będzie rozwijanie jsona, bo wszystko na nim działa.
   global rasa
-  if str(author)=='512712313623674910':
-    rasa = 'Tabaxi'
-  else:
-    rasa = random.choice(race_list)
+  rasa = random.choice(race_list)
   # rasa = 'Half-Elf'
   # print(Statystyki)
   for row in race_result['results']:
@@ -75,7 +72,7 @@ def Losuj_Rasa(author):
 
 
 
-def Losuj_Klasa(author):
+def Losuj_Klasa():
   cr = open("json/clases.json")
   class_ressult = json.load(cr)
   class_list = []
@@ -84,10 +81,7 @@ def Losuj_Klasa(author):
     class_list.append(name)
     
   global klasa
-  if str(author)=='512712313623674910':
-    klasa = 'Fighter'
-  else:
-    klasa = random.choice(class_list)
+  klasa = random.choice(class_list)
   subclass_list = []
   for row in class_ressult['results']:
     if row['name']==klasa:
@@ -96,10 +90,7 @@ def Losuj_Klasa(author):
         subclass_list.append(name)
     
   global subklasa
-  if str(author)=='512712313623674910':
-    subklasa = 'Samurai'
-  else:
-    subklasa = random.choice(subclass_list)
+  subklasa = random.choice(subclass_list)
   
   
 
@@ -123,10 +114,15 @@ def Losuj_Opis():
  
   
 def Rub_Postac(author):
+  if author == 512712313623674910:
+    subklasa = 'Samurai'
+    rasa = 'Tabaxi'
+    klasa = 'Fighter'
+  else:
+    Losuj_Rasa()
+    Losuj_Klasa()
+    Losuj_Opis()
   Stats()
-  Losuj_Rasa(author)
-  Losuj_Klasa(author)
-  Losuj_Opis()
   final = "Rasa: " + rasa + "\n" + "Klasa: " + klasa + '\n' + "Subklasa: " + subklasa + '\n' + str(Statystyki) + '\n' + opis
   return final
 
