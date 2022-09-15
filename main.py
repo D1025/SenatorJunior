@@ -10,25 +10,37 @@ TOKEN = os.environ['TOKEN']
 bot = lightbulb.BotApp(token=TOKEN)
 
 
+#####################################################
+
+
 @bot.listen(hikari.StartedEvent)
 async def on_started(event):
   print("Bot has started!")
 
+
+#####################################################
+
 ### /dnd DND CHARACTER MAKER
 @bot.command
+@lightbulb.option('intelligence', "Do you want turn off inteligence stats?", type=str, required=False, choices=["Turn off"], default="No")
 @lightbulb.command('dnd', 'Makes random character for dnd 5e')
 @lightbulb.implements(lightbulb.SlashCommand)
 async def ping(ctx):
-  character = dnd.Rub_Postac(ctx.author.id)
+  character = dnd.Rub_Postac(ctx.author.id, ctx.options.intelligence)
   print('Character made by '+ str(ctx.author))
   await ctx.respond(character)
 
+#####################################################
+  
+### FIND PERSONALLITY
 @bot.command
 @lightbulb.option("personality","what a personality?", type=str, required=True, choices=["Abrasiveness", "Absent-Minded", "Aggression", "Brawler", "Cautious", "Detached", "Dishonesty", "Distinctive", "Easygoing", "Farsighted", "Focused", "Hard Of Hearing", "Hardy", "Honest", "Illiterate", "Inattentive", "Polite", "Quick", "Relentless", "Slow", "Specialized", "Suspicious", "Uncivilized"])
 @lightbulb.command('find', 'Find personality description')
 @lightbulb.implements(lightbulb.SlashCommand)
 async def find(ctx):
   await ctx.respond(findathing.FindPersonality(ctx.options.personality))
+
+#####################################################
   
 ### /roll dice:5 + optional EXALTED STANDARD ROLL
 @bot.command
@@ -40,6 +52,8 @@ async def find(ctx):
 async def roll(ctx):
   await ctx.respond(d10roll.DiseRoll(ctx.options.dice, ctx.options.auto, ctx.options.desc)) 
 
+#####################################################
+
 ### DAMAGE ROLLER FOR EXALTED
 @bot.command
 @lightbulb.option("damage","Damage type", type=str, required=False, default="Lethal", choices=["Bashing", "Lethal", "Aggravated"])
@@ -48,6 +62,8 @@ async def roll(ctx):
 @lightbulb.implements(lightbulb.SlashCommand)
 async def damage(ctx):
   await ctx.respond(d10roll.DamageRoll(ctx.options.dice, ctx.options.damage)) 
+
+#####################################################
 
 
 time.sleep(3)
@@ -58,3 +74,7 @@ except:
   os.system("kill 1")
 
 # DO_NOT_DISTURB IDLE ONLINE
+
+
+# PROGRAMING
+# Make a dnd Character!

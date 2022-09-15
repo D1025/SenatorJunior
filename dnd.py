@@ -44,7 +44,45 @@ def Stats():
     Statystyki[atrybuty[i]]=score
     # print(Statystyki[atrybuty[i]])
 
+def IntStats():
+  global klasa
+  primary = "Dexterity"
+  class_result = json.load(open("json/clases.json"))
+  for row in class_result['results']:
+    if row['name']==klasa:
+      primary = row['primary']
+  
+  score_list = []
+  for i in range(6):
+    roll1 = random.randint(1,6)
+    roll2 = random.randint(1,6)
+    roll3 = random.randint(1,6)
+    roll4 = random.randint(1,6)
+    nums = [roll1,roll2,roll3,roll4]
+    lowest = min(nums)
+    score_list.append(roll1 + roll2 + roll3 + roll4 - lowest)
 
+  Statystyki[primary]=max(score_list)
+  score_list.remove(max(score_list))
+  if primary != "Dexterity":
+    Statystyki["Dexterity"]=max(score_list)
+    score_list.remove(max(score_list))
+    atrib = ["Strength", "Constitution", "Intelligence", "Wisdom", "Charisma"]
+    atrib.remove(primary)
+    for i in range(4):
+      k = random.choice(atrib)
+      Statystyki[k]=score_list[0]
+      score_list.pop(0)
+      atrib.remove(k)
+  else:
+    atrib = ["Strength", "Constitution", "Intelligence", "Wisdom", "Charisma"]
+    for i in range(5):
+      k = random.choice(atrib)
+      Statystyki[k]=score_list[0]
+      score_list.pop(0)
+      atrib.remove(k)
+      
+  
     
   
   
@@ -134,23 +172,26 @@ def Losuj_Opis():
 
  
   
-def Rub_Postac(author):
+def Rub_Postac(author, Int):
   global rasa
   global klasa
   global subklasa
   global Statystyki
   global opis
   global personality
+  Losuj_Klasa()
+  if Int !="No":
+    Stats()
+  else:
+    IntStats()
+  Losuj_Rasa()
+  Losuj_Opis()
+  Personality()
   if author == 512712313623674910:
     subklasa = 'Samurai'
     rasa = 'Tabaxi'
     klasa = 'Fighter'
-  else:
-    Losuj_Rasa()
-    Losuj_Klasa()
-    Losuj_Opis()
-  Stats()
-  Personality()
+
   final = "**Rasa:** " + rasa + "\n" + "**Klasa:** " + klasa + '\n' + "**Subklasa:** " + subklasa + '\n' + str(Statystyki) + '\n' + '**Sex:** '+ random.choice(["Mele", "Femele"]) + '\n'+ '**Personality:** ' + twofourpersonality + '\n**Description:** ' + opis
   return final
 
