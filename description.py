@@ -51,3 +51,7 @@ mark_where = [
     "reaching from the left side of the forehead"
 ]
 desc5 = [   "An old tattoo", "A tattoo", "Tribal marks", "Several moles", "Freckles", "Smooth skin", "Soft skin", "Fair skin", "A beard", "A large beard", "Dark stubble", "A moustache", "A goatee", "A moustache and goatee"]
+
+tattoo = ["An old tattoo", "A tattoo"]
+tattoo_where = ["sticks out at the neck.", "is barely visible on the neck.", "is barely visible on the shoulders.", "is covered by clothing.", "is on the leg.", "is located on the shoulder.", "is located on the wrist."]
+

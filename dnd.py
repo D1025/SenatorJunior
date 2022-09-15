@@ -7,6 +7,23 @@ subklasa = 'none'
 Statystyki = {'Strength': 0, 'Dexterity': 0, 'Constitution': 0, 'Intelligence': 0, 'Wisdom': 0, 'Charisma': 0}
 atrybuty = list(Statystyki.keys())
 opis = "none"
+twofourpersonality = ""
+
+def Personality():
+  personality = []
+  pr = open("json/personality.json")
+  personality_result = json.load(pr)
+  for row in personality_result['results']:
+    name = row['name']
+    personality.append(name)
+  global twofourpersonality
+  twofourpersonality = str(random.choice(personality))
+  personality.remove(twofourpersonality)
+  i = random.randint(1,2)
+  for j in range(0,i):
+    k = random.choice(personality)
+    twofourpersonality += ", " + k
+    personality.remove(k)
 
 
 
@@ -109,11 +126,21 @@ def Losuj_Opis():
     opis += " "
     opis += random.choice(description.mark_where)
     opis += ". "
-  
+  if random.randint(1,3) == 1:
+    opis += random.choice(description.tattoo)
+    opis += " "
+    opis += random.choice(description.tattoo_where)
+    opis += " "
 
  
   
 def Rub_Postac(author):
+  global rasa
+  global klasa
+  global subklasa
+  global Statystyki
+  global opis
+  global personality
   if author == 512712313623674910:
     subklasa = 'Samurai'
     rasa = 'Tabaxi'
@@ -123,7 +150,8 @@ def Rub_Postac(author):
     Losuj_Klasa()
     Losuj_Opis()
   Stats()
-  final = "Rasa: " + rasa + "\n" + "Klasa: " + klasa + '\n' + "Subklasa: " + subklasa + '\n' + str(Statystyki) + '\n' + opis
+  Personality()
+  final = "**Rasa:** " + rasa + "\n" + "**Klasa:** " + klasa + '\n' + "**Subklasa:** " + subklasa + '\n' + str(Statystyki) + '\n' + '**Sex:** '+ random.choice(["Mele", "Femele"]) + '\n'+ '**Personality:** ' + twofourpersonality + '\n**Description:** ' + opis
   return final
 
 
