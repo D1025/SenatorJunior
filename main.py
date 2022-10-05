@@ -6,9 +6,12 @@ import dnd
 import d10roll
 import findathing
 import rolemanagement
+import random
 
 TOKEN = os.environ['TOKEN']
 bot = lightbulb.BotApp(token=TOKEN)
+
+colors_list = [0x0099FF, 0xDC143C, 0xFF1493, 0xFF6347, 0xFFD700, 0xBA55D3, 0x4B0082, 0x7FFF00, 0x2E8B57, 0x800000, 0xD2691E]
 
 #####################################################
 
@@ -33,8 +36,18 @@ async def on_started(event):
 @lightbulb.implements(lightbulb.SlashCommand)
 async def ping(ctx):
     character = dnd.Rub_Postac(ctx.author.id, ctx.options.intelligence)
-    print('Character made by ' + str(ctx.author))
-    await ctx.respond(character)
+    p_author = "".join(['Character made by ',str(ctx.author)])
+    print(p_author)
+    #embed = hikari.Embed(title="Example embed", description="An example hikari embed")
+    embed = hikari.Embed(title="DND 5e CHARACTER", description = character, color = random.choice(colors_list))
+    #embed.set_thumbnail("Arts/Logos/DnD.png")
+    #embed.set_thumbnail("https://i.pinimg.com/originals/48/cb/53/48cb5349f515f6e59edc2a4de294f439.png")
+    try:
+      embed.set_thumbnail(dnd.ArtClass())
+    except:
+      embed.set_thumbnail("Arts/Logos/DnD.png")
+    embed.set_footer(p_author)
+    await ctx.respond(embed)
 
 
 #####################################################

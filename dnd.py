@@ -15,7 +15,8 @@ Statystyki = {
 atrybuty = list(Statystyki.keys())
 opis = "none"
 twofourpersonality = ""
-
+rasa_art = ""
+klasy_art = {'Barbarian':"https://www.dndbeyond.com/avatars/10/0/636336416778392507.jpeg", 'Bard': "https://www.dndbeyond.com/avatars/10/1/636336416923635770.jpeg", 'Cleric':"https://www.dndbeyond.com/avatars/10/2/636336417054144618.jpeg", 'Druid':"https://www.dndbeyond.com/avatars/10/3/636336417152216156.jpeg", 'Fighter': "https://www.dndbeyond.com/avatars/10/4/636336417268495752.jpeg", 'Monk':"https://www.dndbeyond.com/avatars/10/5/636336417372349522.jpeg", 'Paladin': "https://www.dndbeyond.com/avatars/10/6/636336417477714942.jpeg", 'Ranger':"https://www.dndbeyond.com/avatars/10/7/636336417569697438.jpeg", 'Rogue':"https://www.dndbeyond.com/avatars/10/8/636336417681318097.jpeg", 'Sorcerer':"https://www.dndbeyond.com/avatars/10/9/636336417773983369.jpeg", 'Warlock': "https://www.dndbeyond.com/avatars/10/12/636336422983071263.jpeg", 'Wizard':"https://www.dndbeyond.com/avatars/10/11/636336418370446635.jpeg"}
 
 def Personality():
     personality = []
@@ -51,12 +52,13 @@ def Stats():
         Statystyki[atrybuty[i]] = score
         # print(Statystyki[atrybuty[i]])
 
+
 def AutisticStats():
     global Statystyki
     global atrybuty
 
     for i in range(6):
-      Statystyki[atrybuty[i]] = random.randint(1,18)
+        Statystyki[atrybuty[i]] = random.randint(1, 18)
 
 
 def IntStats():
@@ -113,11 +115,14 @@ def Losuj_Rasa():
 
     #race_list.append(new_races) #Dla nowych ras, ale raczej będzie rozwijanie jsona, bo wszystko na nim działa.
     global rasa
+    global rasa_art 
+    rasa_art = ""
     rasa = random.choice(race_list)
     # rasa = 'Half-Elf'
     # print(Statystyki)
     for row in race_result['results']:
         if str(row['name']) == rasa:
+            rasa_art = row['url']
             hated_i = []
             # print(row['asi'])
             for att in row['asi']:
@@ -192,11 +197,11 @@ def Rub_Postac(author, Int):
     global personality
     Losuj_Klasa()
     if Int == "Autistic":
-      AutisticStats()
+        AutisticStats()
     elif Int != "No":
-      Stats()
+        Stats()
     else:
-      IntStats()
+        IntStats()
     Losuj_Rasa()
     Losuj_Opis()
     Personality()
@@ -216,6 +221,16 @@ def Rub_Postac(author, Int):
         Statystyki
     ) + '\n' + '**Sex:** ' + sex + '\n' + '**Personality:** ' + twofourpersonality + '\n**Description:** ' + opis
     return final
+
+
+def ArtRace():
+  global rasa_art
+  return rasa_art
+
+def ArtClass():
+  global klasa
+  global klasy_art
+  return klasy_art[klasa]
 
 
 # print("Gotowe")
