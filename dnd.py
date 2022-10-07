@@ -18,24 +18,56 @@ opis = "none"
 twofourpersonality = ""
 rasa_art = ""
 klasy_art = {'Artificer':"https://www.dndbeyond.com/avatars/13916/408/637411847943829485.jpeg",'Barbarian':"https://www.dndbeyond.com/avatars/10/0/636336416778392507.jpeg", 'Bard': "https://www.dndbeyond.com/avatars/10/1/636336416923635770.jpeg", 'Cleric':"https://www.dndbeyond.com/avatars/10/2/636336417054144618.jpeg", 'Druid':"https://www.dndbeyond.com/avatars/10/3/636336417152216156.jpeg", 'Fighter': "https://www.dndbeyond.com/avatars/10/4/636336417268495752.jpeg", 'Monk':"https://www.dndbeyond.com/avatars/10/5/636336417372349522.jpeg", 'Paladin': "https://www.dndbeyond.com/avatars/10/6/636336417477714942.jpeg", 'Ranger':"https://www.dndbeyond.com/avatars/10/7/636336417569697438.jpeg", 'Rogue':"https://www.dndbeyond.com/avatars/10/8/636336417681318097.jpeg", 'Sorcerer':"https://www.dndbeyond.com/avatars/10/9/636336417773983369.jpeg", 'Warlock': "https://www.dndbeyond.com/avatars/10/12/636336422983071263.jpeg", 'Wizard':"https://www.dndbeyond.com/avatars/10/11/636336418370446635.jpeg"}
+personality = []
+race_list = []
+class_dir = {}
 
+def BuffFromJson():
+  # PERSONALITY
+  global personality
+  pr = open("json/personality.json")
+  personality_result = json.load(pr)
+  for row in personality_result['results']:
+    name = row['name']
+    personality.append(name)
+  # RACE 
+  global race_list
+  rr = open("json/newrases.json")
+  race_result = json.load(rr)
+  for row in race_result['results']:
+    name = row['name']
+    race_list.append(name)
+  # CLASS / SUBCLASS
+  global class_dir
+  cr = open("json/clases.json")
+  class_ressult = json.load(cr)
+  for row in class_ressult['results']:
+    name = row['name']
+    subclass_list = []
+    for nextrow in row['archetype']:
+      s_name = nextrow['name']
+      subclass_list.append(s_name)
+    class_dir[name] = subclass_list
+
+    pr.close()
+    rr.close()
+    cr.close()
+    
+    
+  
 
 
 def Personality():
-    personality = []
-    pr = open("json/personality.json")
-    personality_result = json.load(pr)
-    for row in personality_result['results']:
-        name = row['name']
-        personality.append(name)
+    global personality
     global twofourpersonality
-    twofourpersonality = str(random.choice(personality))
-    personality.remove(twofourpersonality)
+    new_personality = personality
+    twofourpersonality = str(random.choice(new_personality))
+    new_personality.remove(twofourpersonality)
     i = random.randint(1, 2)
     for j in range(0, i):
-        k = random.choice(personality)
+        k = random.choice(new_personality)
         twofourpersonality += ", " + k
-        personality.remove(k)
+        new_personality.remove(k)
 
 
 def Stats():
@@ -108,13 +140,8 @@ def IntStats():
 
 
 def Losuj_Rasa():
-    global Statystyki, atrybuty
-    rr = open("json/newrases.json")
-    race_result = json.load(rr)
-    race_list = []
-    for row in race_result['results']:
-        name = row['name']
-        race_list.append(name)
+    global Statystyki, atrybuty, race_list
+  
 
     #race_list.append(new_races) #Dla nowych ras, ale raczej będzie rozwijanie jsona, bo wszystko na nim działa.
     global rasa
@@ -123,6 +150,8 @@ def Losuj_Rasa():
     rasa = random.choice(race_list)
     # rasa = 'Half-Elf'
     # print(Statystyki)
+    rr = open("json/newrases.json")
+    race_result = json.load(rr)
     for row in race_result['results']:
         if str(row['name']) == rasa:
             rasa_art = row['url']
@@ -144,29 +173,17 @@ def Losuj_Rasa():
                         Statystyki[atrybuty[att_dodaj]] += att['value']
                         hated_i.append(att_dodaj)
                     att_dodaj = random.randint(0, 5)
+    rr.close()
 
     # print(Statystyki)
 
 
 def Losuj_Klasa():
-    cr = open("json/clases.json")
-    class_ressult = json.load(cr)
-    class_list = []
-    for row in class_ressult['results']:
-        name = row['name']
-        class_list.append(name)
-
     global klasa
-    klasa = random.choice(class_list)
-    subclass_list = []
-    for row in class_ressult['results']:
-        if row['name'] == klasa:
-            for nextrow in row['archetype']:
-                name = nextrow['name']
-                subclass_list.append(name)
-
+    global class_dir
+    klasa = random.choice(list(class_dir.keys()))
     global subklasa
-    subklasa = random.choice(subclass_list)
+    subklasa = random.choice(class_dir[klasa])
 
 
 def Losuj_Opis():

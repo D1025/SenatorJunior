@@ -19,6 +19,7 @@ colors_list = [0x0099FF, 0xDC143C, 0xFF1493, 0xFF6347, 0xFFD700, 0xBA55D3, 0x4B0
 @bot.listen(hikari.StartedEvent)
 async def on_started(event):
     print("Bot has started!")
+    dnd.BuffFromJson()
 
 
 #####################################################
