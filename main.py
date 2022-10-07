@@ -44,6 +44,7 @@ async def ping(ctx):
     #embed.set_thumbnail("https://i.pinimg.com/originals/48/cb/53/48cb5349f515f6e59edc2a4de294f439.png")
     try:
       embed.set_thumbnail(dnd.ArtClass())
+      embed.set_image("Arts/Stats/DnDCopy.png")
     except:
       embed.set_thumbnail("Arts/Logos/DnD.png")
     embed.set_footer(p_author)
@@ -88,8 +89,11 @@ async def find(ctx):
 @lightbulb.command('roll', 'Exalted roller')
 @lightbulb.implements(lightbulb.SlashCommand)
 async def roll(ctx):
-    await ctx.respond(
-        d10roll.DiseRoll(ctx.options.dice, ctx.options.auto, ctx.options.desc))
+    roll = d10roll.DiseRoll(ctx.options.dice, ctx.options.auto, ctx.options.desc)
+    embed = hikari.Embed(title=roll[1], description = roll[0], color = random.choice(colors_list))
+    embed.set_footer(" ".join([str(ctx.author), "●", str(time.strftime("%H:%M"))]))
+    await ctx.respond(embed)
+    # await ctx.respond(d10roll.DiseRoll(ctx.options.dice, ctx.options.auto, ctx.options.desc))
 
 
 #####################################################
@@ -146,6 +150,18 @@ async def systemrole(ctx):
   await ctx.respond("Added")
   
   
+
+
+#####################################################
+
+# @bot.command
+# @lightbulb.command('test', 'testing stuff')
+# @lightbulb.implements(lightbulb.SlashCommand)
+# async def test(ctx):
+#   embed = hikari.Embed(title = "Test", description = "", color = random.choice(colors_list))
+#   embed.set_image("Arts/Logos/DnD.png")
+#   embed.add_field("Something", "Special")
+#   await ctx.respond(embed)
 
 
 #####################################################

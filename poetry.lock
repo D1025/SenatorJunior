@@ -157,6 +157,18 @@ optional = false
 python-versions = ">=3.8"
 
 [[package]]
+name = "pillow"
+version = "9.2.0"
+description = "Python Imaging Library (Fork)"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+docs = ["furo", "olefile", "sphinx (>=2.4)", "sphinx-copybutton", "sphinx-issues (>=3.0.1)", "sphinx-removed-in", "sphinxext-opengraph"]
+tests = ["check-manifest", "coverage", "defusedxml", "markdown2", "olefile", "packaging", "pyroma", "pytest", "pytest-cov", "pytest-timeout"]
+
+[[package]]
 name = "requests"
 version = "2.28.1"
 description = "Python HTTP for Humans."
@@ -202,7 +214,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8.0,<3.9"
-content-hash = "86ed35c5428985498291378c6811dd471eee55c943f8a051ec70e9deeac637c3"
+content-hash = "ad511dd30edfeaa5ffca717d57ae0dd865185ee5aba513250b95b606c1a5eee1"
 
 [metadata.files]
 aiohttp = []
@@ -219,6 +231,7 @@ hikari-lightbulb = []
 idna = []
 multidict = []
 numpy = []
+pillow = []
 requests = []
 urllib3 = []
 yarl = []

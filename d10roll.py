@@ -28,7 +28,9 @@ def DiseRoll(dicenummber, auto, description):
       finalroll = "You rolled [" + str(dicenummber)+"]: " + Rolled + " for a total of **" + str(sukcesses) + "** successes"
     else:
       finalroll = "You rolled [" + str(dicenummber)+"]: " + Rolled + " for a total of **" + str(sukcesses) + "** successes for " + description
-  return finalroll
+  tab_finalroll = [finalroll, "".join([str(sukcesses), " SUCCESSES"])]
+  #return finalroll
+  return tab_finalroll
 
 
 def DamageRoll(dicenummber, damagetype):
