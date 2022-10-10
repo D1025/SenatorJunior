@@ -12,15 +12,23 @@ Example
 ![image](https://user-images.githubusercontent.com/69533622/194956221-5a6b5024-9598-4e11-bc67-049ccbda0b1e.png)
 
 It accepts one optional variable - intellinence
+
 "Turn off"
+
 You can use it when you don't really want good character. Bot distributes all stats randomly without paying attention to character class.
+
 "Autistic"
+
 Oh boy, you hate good character, you like see 1 on some starts? That's mode for you. Bot randomlly rolls 1d18 for every score! If you lucky you gonna get more than one "1" on a stats!
+
 
 # TO DO
 -Add subraces
+
 -Add character databese
+
 -Add charcter customisation (change by imput race/class)
+
 -Add random name generator
 
 Long term to do:
