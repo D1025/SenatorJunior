@@ -60,7 +60,7 @@ def BuffFromJson():
 def Personality():
     global personality
     global twofourpersonality
-    new_personality = personality
+    new_personality = personality.copy()
     twofourpersonality = str(random.choice(new_personality))
     new_personality.remove(twofourpersonality)
     i = random.randint(1, 2)
