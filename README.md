@@ -2,7 +2,7 @@
 Bot for a Dungeons and Dragons 5e, and Exalted 2e
 
 
-# DUNGEONS AND DRAGNS
+# DUNGEONS AND DRAGONS
 "/dnd" - makes a random genereted character for a 5e. Rolling all from all races and classes. Also adding API from rases to scores.
 
 It have based intelligence for scores and puting highest for a main one. Base roll is 3 hihest from 4d6.
@@ -19,11 +19,15 @@ You can use it when you don't really want good character. Bot distributes all st
 
 "Autistic"
 
-Oh boy, you hate good character, you like see 1 on some starts? That's mode for you. Bot randomlly rolls 1d18 for every score! If you lucky you gonna get more than one "1" on a stats!
+Oh boy, you hate good character, you like see 1 on some stats? That's mode for you. Bot randomlly rolls 1d18 for every score! If you lucky you gonna get more than one "1" on a stats!
 
 
 # TO DO
 -Add subraces
+
+-Change to class based stystem
+
+-Multithreading
 
 -Add character databese
 
@@ -32,4 +36,5 @@ Oh boy, you hate good character, you like see 1 on some starts? That's mode for 
 -Add random name generator
 
 Long term to do:
+
 -Add full character creation
