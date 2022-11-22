@@ -11,7 +11,10 @@ import random
 TOKEN = os.environ['TOKEN']
 bot = lightbulb.BotApp(token=TOKEN)
 
-colors_list = [0x0099FF, 0xDC143C, 0xFF1493, 0xFF6347, 0xFFD700, 0xBA55D3, 0x4B0082, 0x7FFF00, 0x2E8B57, 0x800000, 0xD2691E]
+colors_list = [
+    0x0099FF, 0xDC143C, 0xFF1493, 0xFF6347, 0xFFD700, 0xBA55D3, 0x4B0082,
+    0x7FFF00, 0x2E8B57, 0x800000, 0xD2691E
+]
 
 #####################################################
 
@@ -37,17 +40,19 @@ async def on_started(event):
 @lightbulb.implements(lightbulb.SlashCommand)
 async def ping(ctx):
     character = dnd.Rub_Postac(ctx.author.id, ctx.options.intelligence)
-    p_author = "".join(['Character made by ',str(ctx.author)])
+    p_author = "".join(['Character made by ', str(ctx.author)])
     print(p_author)
     #embed = hikari.Embed(title="Example embed", description="An example hikari embed")
-    embed = hikari.Embed(title="DND 5e CHARACTER", description = character, color = random.choice(colors_list))
+    embed = hikari.Embed(title="DND 5e CHARACTER",
+                         description=character,
+                         color=random.choice(colors_list))
     #embed.set_thumbnail("Arts/Logos/DnD.png")
     #embed.set_thumbnail("https://i.pinimg.com/originals/48/cb/53/48cb5349f515f6e59edc2a4de294f439.png")
     try:
-      embed.set_thumbnail(dnd.ArtClass())
-      embed.set_image("Arts/Stats/DnDCopy.png")
+        embed.set_thumbnail(dnd.ArtClass())
+        embed.set_image("Arts/Stats/DnDCopy.png")
     except:
-      embed.set_thumbnail("Arts/Logos/DnD.png")
+        embed.set_thumbnail("Arts/Logos/DnD.png")
     embed.set_footer(p_author)
     await ctx.respond(embed)
 
@@ -90,9 +95,14 @@ async def find(ctx):
 @lightbulb.command('roll', 'Exalted roller')
 @lightbulb.implements(lightbulb.SlashCommand)
 async def roll(ctx):
-    roll = d10roll.DiseRoll(ctx.options.dice, ctx.options.auto, ctx.options.desc)
-    embed = hikari.Embed(title=roll[1], description = roll[0], color = random.choice(colors_list))
-    embed.set_footer(" ".join([str(ctx.author), "●", str(time.strftime("%H:%M"))]))
+    roll = d10roll.DiseRoll(ctx.options.dice, ctx.options.auto,
+                            ctx.options.desc)
+    embed = hikari.Embed(title=roll[1],
+                         description=roll[0],
+                         color=random.choice(colors_list))
+    embed.set_footer(" ".join(
+        [str(ctx.author), "●",
+         str(time.strftime("%H:%M"))]))
     await ctx.respond(embed)
     # await ctx.respond(d10roll.DiseRoll(ctx.options.dice, ctx.options.auto, ctx.options.desc))
 
@@ -126,11 +136,13 @@ async def damage(ctx):
 async def giverole(ctx):
     trole = rolemanagement.GiveRole(ctx.guild_id, ctx.options.code)
     if trole != "False":
-      try:
-        await bot.rest.add_role_to_member(user=ctx.author,guild=ctx.guild_id, role=trole)
-        await ctx.respond("Done, look at your fancy role!")
-      except:
-        await ctx.respond("Hey, you problably have already that role!")
+        try:
+            await bot.rest.add_role_to_member(user=ctx.author,
+                                              guild=ctx.guild_id,
+                                              role=trole)
+            await ctx.respond("Done, look at your fancy role!")
+        except:
+            await ctx.respond("Hey, you problably have already that role!")
     else:
         await ctx.respond("Sorry, got a problem.")
     time.sleep(3)
@@ -140,17 +152,17 @@ async def giverole(ctx):
 #####################################################
 ### ADDING ROLES
 
+
 @bot.command
-@lightbulb.add_checks(lightbulb.has_guild_permissions(hikari.Permissions.ADMINISTRATOR))
+@lightbulb.add_checks(
+    lightbulb.has_guild_permissions(hikari.Permissions.ADMINISTRATOR))
 @lightbulb.option("id", "Role ID", type=str)
 @lightbulb.option("code", "Secred code for getting role", type=str)
 @lightbulb.command('adminaddrole', 'Add secred code for role!')
 @lightbulb.implements(lightbulb.SlashCommand)
 async def systemrole(ctx):
-  rolemanagement.AddGiveRole(ctx.guild_id, ctx.options.code, ctx.options.id)
-  await ctx.respond("Added")
-  
-  
+    rolemanagement.AddGiveRole(ctx.guild_id, ctx.options.code, ctx.options.id)
+    await ctx.respond("Added")
 
 
 #####################################################
@@ -163,7 +175,6 @@ async def systemrole(ctx):
 #   embed.set_image("Arts/Logos/DnD.png")
 #   embed.add_field("Something", "Special")
 #   await ctx.respond(embed)
-
 
 #####################################################
 
