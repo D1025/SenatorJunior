@@ -7,6 +7,7 @@ import d10roll
 import findathing
 import rolemanagement
 import random
+# import openAI
 
 TOKEN = os.environ['TOKEN']
 bot = lightbulb.BotApp(token=TOKEN)
@@ -23,6 +24,7 @@ colors_list = [
 async def on_started(event):
     print("Bot has started!")
     dnd.BuffFromJson()
+    # openAI.api_prepare()
 
 
 #####################################################
@@ -55,6 +57,7 @@ async def ping(ctx):
         embed.set_thumbnail("Arts/Logos/DnD.png")
     embed.set_footer(p_author)
     await ctx.respond(embed)
+    # openAI.api_out()
 
 
 #####################################################
@@ -179,6 +182,7 @@ async def systemrole(ctx):
 #####################################################
 
 time.sleep(3)
+
 
 try:
     bot.run(

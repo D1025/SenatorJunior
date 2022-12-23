@@ -1,6 +1,7 @@
-import random, json, requests
+import random, json
 import description
 from dndpaiting import Paint
+import openAI
 
 rasa = 'Human'
 klasa = 'Standart'
@@ -239,6 +240,8 @@ def Rub_Postac(author, Int):
         sex = "Femboy XD"
     else:
         sex = random.choice(["Melee", "Femelee"])
+
+    # opis = openAI.propt_text("Describe DnD 5e character " + rasa + " " + klasa + " "+subklasa+" "+sex+" "+twofourpersonality)
 
     final = "**Rasa:** " + rasa + "\n" + "**Klasa:** " + klasa + '\n' + "**Subklasa:** " + subklasa + '\n' + str(
         Statystyki
